@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
@@ -25,14 +26,14 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $article = $request->validate([
           'name' => 'required',
           'slug' => 'required',
-          'article' => 'required'
-
+          'article' => 'required',
         ]);
 
-        return Article::create($request->all());
+        $article['user_id'] = auth()->user()->id;
+        return Article::create($article);
     }
 
     /**

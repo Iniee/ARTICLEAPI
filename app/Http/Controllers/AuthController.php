@@ -23,12 +23,9 @@ class AuthController extends Controller
             'password' => bcrypt($values['password'])
 
         ]);
-        
-        $token = $user->createtoken('articletoken')->plainTextToken;
 
         $response = [
-            'user' => $user,
-            'token' => $token
+            'user' => $user
         ];
 
         return response($response, 201);
